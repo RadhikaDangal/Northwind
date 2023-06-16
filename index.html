@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+
+    <style>
+      .order > dl > dt {
+        font-weight: bold;
+        margin-top: 1.2em;
+        margin-bottom: 0.2em;
+      }
+
+      .order > dl > dd {
+        margin-inline-start: 0px;
+        font-weight: 200;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <nav>
+        <ul></ul>
+        <ul>
+          <li>
+            <svg id="logo-15" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 12.75C24.5 18.9632 19.4632 24 13.25 24H2V12.75C2 6.53679 7.03679 1.5 13.25 1.5C19.4632 1.5 24.5 6.53679 24.5 12.75Z"
+                class="ccustom"
+                fill="#17CF97"
+              ></path>
+              <path
+                d="M24.5 35.25C24.5 29.0368 29.5368 24 35.75 24H47V35.25C47 41.4632 41.9632 46.5 35.75 46.5C29.5368 46.5 24.5 41.4632 24.5 35.25Z"
+                class="ccustom"
+                fill="#17CF97"
+              ></path>
+              <path
+                d="M2 35.25C2 41.4632 7.03679 46.5 13.25 46.5H24.5V35.25C24.5 29.0368 19.4632 24 13.25 24C7.03679 24 2 29.0368 2 35.25Z"
+                class="ccustom"
+                fill="#17CF97"
+              ></path>
+              <path
+                d="M47 12.75C47 6.53679 41.9632 1.5 35.75 1.5H24.5V12.75C24.5 18.9632 29.5368 24 35.75 24C41.9632 24 47 18.9632 47 12.75Z"
+                class="ccustom"
+                fill="#17CF97"
+              ></path>
+            </svg>
+          </li>
+        </ul>
+        <ul>
+          <li><a href="orders/create.html" class="secondary">Orders</a></li>
+          <li><a href="orders/create.html" class="secondary">Customers</a></li>
+          <li><a href="orders/create.html" class="secondary">Employees</a></li>
+        </ul>
+      </nav>
+      <article id="orders-article">
+        <header>
+          <hgroup>
+            <h2>Orders</h2>
+            <h3>See recent orders below</h3>
+          </hgroup>
+        </header>
+
+        <section class="grid order">
+          <dl>
+            <dt>Order Number:</dt>
+            <dd>10271</dd>
+            <dt>Order Date:</dt>
+            <dd>08-01-1996</dd>
+          </dl>
+          <dl>
+            <dt>Company Name:</dt>
+            <dd>Split Rail Beer & Ale</dd>
+            <dt>Contact Name:</dt>
+            <dd>Art Braunschweiger</dd>
+          </dl>
+          <dl>
+            <dt>Sales Representative:</dt>
+            <dd>Michael Suyama</dd>
+            <dt>Region:</dt>
+            <dd>WY, USA</dd>
+          </dl>
+        </section>
+      </article>
+    </main>
+    <script>
+      const ordersArticle = document.querySelector("#orders-article");
+      const ordersUrl = "http://localhost:4000/orders?_page=1&_limit=10&_expand=customer&_expand=employee";
+      fetch(ordersUrl)
+        .then((response) => response.json())
+        .then((orders) => {
+          console.log(orders);
+          orders.forEach(buildOrderSection);
+        });
+      function buildOrderSection(order) {
+        let section = document.createElement("section");
+        section.innerText = order.id;
+        ordersArticle.appendChild(section)
+      }
+    </script>
+  </body>
+</html>
